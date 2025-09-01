@@ -1,222 +1,485 @@
 ﻿<Window x:Class="wpf_project.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="My WPF App" Height="520" Width="860" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+        Title="My WPF App"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        MinWidth="1024" MinHeight="720">
 
+    <Window.Resources>
+        <!-- Colors -->
+        <Color x:Key="App.Bg1">#0B1220</Color>
+        <Color x:Key="App.Bg2">#111827</Color>
+        <Color x:Key="App.Card">#1F2937</Color>
+        <Color x:Key="App.CardAlt">#223047</Color>
+        <Color x:Key="App.Text">#FFFFFF</Color>
+        <Color x:Key="App.TextSubtle">#E5E7EB</Color>
+        <Color x:Key="App.Border">#22FFFFFF</Color>
+        <Color x:Key="App.Accent">#7C3AED</Color>
+        <Color x:Key="App.Accent2">#06B6D4</Color>
+
+        <!-- Brushes -->
+        <LinearGradientBrush x:Key="App.Bg" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource App.Bg1}" Offset="0"/>
+            <GradientStop Color="{StaticResource App.Bg2}" Offset="1"/>
+        </LinearGradientBrush>
+
+        <SolidColorBrush x:Key="Brush.Card" Color="{StaticResource App.Card}"/>
+        <SolidColorBrush x:Key="Brush.CardAlt" Color="{StaticResource App.CardAlt}"/>
+        <SolidColorBrush x:Key="Brush.Text" Color="{StaticResource App.Text}"/>
+        <SolidColorBrush x:Key="Brush.TextSubtle" Color="{StaticResource App.TextSubtle}"/>
+        <SolidColorBrush x:Key="Brush.Border" Color="{StaticResource App.Border}"/>
+        <SolidColorBrush x:Key="Brush.Accent" Color="{StaticResource App.Accent}"/>
+        <SolidColorBrush x:Key="Brush.Accent2" Color="{StaticResource App.Accent2}"/>
+
+        <LinearGradientBrush x:Key="Brush.Accent.Grad" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource App.Accent}" Offset="0"/>
+            <GradientStop Color="{StaticResource App.Accent2}" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Birthday Title -->
+        <LinearGradientBrush x:Key="BirthdayTitleBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFFA709A" Offset="0"/>
+            <GradientStop Color="#FFE6DADA" Offset="0.5"/>
+            <GradientStop Color="#FF66FFFF" Offset="1"/>
+        </LinearGradientBrush>
+        <DropShadowEffect x:Key="GlowSoft" BlurRadius="18" ShadowDepth="0" Color="#99FFFFFF" Opacity="0.8"/>
+
+        <!-- Bunting (flags) -->
+        <Geometry x:Key="BuntingGeometry">M0,0 L30,20 L60,0 Z</Geometry>
+        <SolidColorBrush x:Key="Bunting1" Color="#FFEF476F"/>
+        <SolidColorBrush x:Key="Bunting2" Color="#FFFFD166"/>
+        <SolidColorBrush x:Key="Bunting3" Color="#FF06D6A0"/>
+        <SolidColorBrush x:Key="Bunting4" Color="#FF118AB2"/>
+
+        <!-- Typography -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
+            <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+            <Setter Property="FontFamily" Value="Segoe UI Variable, Segoe UI"/>
+        </Style>
+
+        <!-- Card -->
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="Background" Value="{StaticResource Brush.Card}"/>
+            <Setter Property="Padding" Value="24"/>
+            <Setter Property="Margin" Value="0,16,0,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="18" ShadowDepth="0" Opacity="0.35"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Primary Button -->
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Segoe UI Variable, Segoe UI"/>
             <Setter Property="Margin" Value="8"/>
             <Setter Property="Padding" Value="18,10"/>
-            <Setter Property="Background" Value="#1F2937"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#22FFFFFF"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource Brush.Accent.Grad}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                CornerRadius="10"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              RecognizesAccessKey="True"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.95"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource Brush.Accent2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource Brush.Accent2}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.55"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Ghost Button -->
+        <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource Brush.CardAlt}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <!-- ComboBox -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#223047"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="0,4,0,12"/>
+            <Setter Property="Width" Value="220"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
-        <Style TargetType="TextBlock">
+
+        <Style TargetType="ComboBoxItem">
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#223047"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+        </Style>
+
+        <!-- Separator -->
+        <Style x:Key="Rule" TargetType="Rectangle">
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Fill" Value="#22FFFFFF"/>
+            <Setter Property="Margin" Value="0,16,0,16"/>
         </Style>
     </Window.Resources>
 
-    <Grid Background="#0B1220">
+    <Grid Background="{StaticResource App.Bg}">
 
+        <!-- ========== Menu ========== -->
         <Grid x:Name="ScreenMenu" Visibility="Visible">
+            <!-- Bunting -->
+            <Canvas Height="70" VerticalAlignment="Top" Margin="0,6,0,0" IsHitTestVisible="False">
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting1}" Canvas.Left="40"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting2}" Canvas.Left="110"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting3}" Canvas.Left="180"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting4}" Canvas.Left="250"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting1}" Canvas.Left="320"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting2}" Canvas.Left="390"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting3}" Canvas.Left="460"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting4}" Canvas.Left="530"/>
+                <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting1}" Canvas.Left="600"/>
+            </Canvas>
+
             <StackPanel Margin="24">
-                <TextBlock Text="Happy birthday baby" FontSize="28" FontWeight="Bold" Margin="0,0,0,12"/>
-                <UniformGrid Rows="2" Columns="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Content="שלב הראשון" Click="Go1_Click"/>
-                    <Button Content="שלב השני" Click="Go2_Click"/>
-                    <Button Content="שלב שלישי" Click="Go3_Click"/>
-                    <Button Content="שלב רביעי" Click="Go4_Click"/>
-                </UniformGrid>
-            </StackPanel>
-        </Grid>
+                <TextBlock Text="🎂 Happy Birthday, Love! 🎈"
+                           FontSize="36" FontWeight="Black" TextAlignment="Center"
+                           Foreground="{StaticResource BirthdayTitleBrush}"
+                           Effect="{StaticResource GlowSoft}" Margin="0,0,0,6"/>
+                <TextBlock Text="Let’s make today unforgettable ✨"
+                           FontSize="16" Opacity="0.9" TextAlignment="Center"/>
 
-       <Grid x:Name="Screen1" Visibility="Collapsed"
-            TextOptions.TextFormattingMode="Ideal"
-            TextOptions.TextRenderingMode="ClearType">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+                <Button Content="Start Party ✨" HorizontalAlignment="Center"
+                        Margin="0,14,0,0"
+                        Click="Party_Click"
+                        Style="{StaticResource GhostButton}"/>
 
-  <Button Grid.Row="0"
-          Content="⌂ Back to Menu"
-          HorizontalAlignment="right"
-          Margin="24,24,24,0"
-          Click="BackToMenu_Click"/>
+                <!-- Home card -->
+                <Border Style="{StaticResource Card}">
+                  <StackPanel>
+                    <TextBlock Text="Happy birthday baby" FontSize="28" FontWeight="Bold" Margin="0,0,0,12"/>
 
-  <Border Grid.Row="1"
-          CornerRadius="16"
-          Padding="0"
-          Background="#1F2937"
-          Margin="24,16,24,24">
-    <Border.Effect>
-      <DropShadowEffect BlurRadius="14" ShadowDepth="0" Opacity="0.35"/>
-    </Border.Effect>
+                    <!-- Stage buttons -->
+                    <UniformGrid Rows="2" Columns="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <Button x:Name="BtnStage1" Content="שלב הראשון" Click="Go1_Click"/>
+                      <Button x:Name="BtnStage2" Content="שלב השני"  Click="Go2_Click"/>
+                      <Button x:Name="BtnStage3" Content="שלב שלישי"  Click="Go3_Click"/>
+                      <Button x:Name="BtnStage4" Content="שלב רביעי"  Click="Go4_Click"/>
+                    </UniformGrid>
 
-    <ScrollViewer x:Name="SV_Screen1"
-                  VerticalScrollBarVisibility="Auto"
-                  PanningMode="VerticalOnly"
-                  Background="Transparent"
-                  PreviewMouseLeftButtonDown="SV_PreviewMouseLeftButtonDown"
-                  PreviewMouseMove="SV_PreviewMouseMove"
-                  PreviewMouseLeftButtonUp="SV_PreviewMouseLeftButtonUp">
-
-      <StackPanel HorizontalAlignment="Center" Margin="24">
-        <StackPanel Width="720" FlowDirection="RightToLeft">
-
-          <TextBlock Text="בוקר טוב אהוב שלי ✨"
-                     FontFamily="Segoe UI"
-                     FontSize="30"
-                     FontWeight="Bold"
-                     Foreground="White"
-                     TextAlignment="center"
-                     Margin="0,0,0,8"/>
-
-          <TextBlock Text="היום הזה סוף סוף הגיע – היום שחיכינו לו! לפני בדיוק 28שנים העולם קיבל מתנה – אותך בן אדם טהור, טוב לב, רגיש ואהוב. וגם אם לפעמים אתה מנסה להראות קשוח – אני יודעת, ומי שבאמת מכיר אותך יודע – שאתה בפנים הבייבי הכי מתוק שיש"
-                     FontSize="18" Foreground="#E5E7EB"
-                     TextAlignment="center" TextWrapping="Wrap"
-                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
-                     Margin="0,0,0,12"/>
-
-          <TextBlock Text=" אז תתכונן, כי היום אנחנו יוצאים ליום היסטורי, יום מיוחד, יום של שמחה, צחוק ואהבה -בלי טיפת עצב"
-                     FontSize="18" Foreground="#E5E7EB"
-                     TextAlignment="center" TextWrapping="Wrap"
-                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
-                     Margin="0,0,0,16"/>
-            
-            <TextBlock Text=" כדי לדעת בכל פעם לאן ממשיכים, מחכה לך חידון קטן כל תשובה תוביל אותנו לרמז הבא – וביחד נגלה את היעד הבא במסע שלנו. "
-                     FontSize="18" Foreground="#E5E7EB"
-                     TextAlignment="center" TextWrapping="Wrap"
-                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
-                     Margin="0,0,0,18"/>
-
-          <Rectangle Height="1" Fill="#FFFFFF22" Margin="0,8,0,20"/>
-
-          <TextBlock Text="החידון הראשון של היום:"
-                     FontSize="22" FontWeight="SemiBold"
-                     Foreground="White" TextAlignment="center"
-                     Margin="0,0,0,8"/>
-
-          <StackPanel Grid.Row="1" Margin="24" FlowDirection="RightToLeft">
-
-            <TextBlock Text="רמז : התשובה מוחבאת בתשובות הסופות - תתרכז בתשובות וב-סדר שלהם" 
-                    FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,0,16"/>
-
-      
-            <TextBlock Text="1) באיזה חודש חגגנו את האהבה הכי גדולה שלך?" Foreground="White"/>
-            <ComboBox x:Name="Q1Box" Margin="0,4,0,12" Width="200">
-            <ComboBoxItem Content="ספטמפר"/>
-            <ComboBoxItem Content="פברואר"/>
-            <ComboBoxItem Content="אוקטופר"/>
-            </ComboBox>
-
-          
-            <TextBlock Text="2) איזה מסעדה הינו ביום ההולדת שלי, לפני שנתיים?" Foreground="White"/>
-            <ComboBox x:Name="Q2Box" Margin="0,4,0,12" Width="200">
-            <ComboBoxItem Content="ויונו"/>
-            <ComboBoxItem Content="ביץ קלאפ"/>
-            <ComboBoxItem Content="גפניקה"/>
-            </ComboBox>
-
-     
-            <TextBlock Text="3) מה הכונוי הכי מפרסם שלנו?" Foreground="White"/>
-            <ComboBox x:Name="Q3Box" Margin="0,4,0,12" Width="200">
-            <ComboBoxItem Content="בובי"/>
-            <ComboBoxItem Content="פאשי"/>
-            <ComboBoxItem Content="ניסו"/>
-            </ComboBox>
-
-            <TextBlock Text="4) איך רשום את השם שלך באנשי הקשר שלי?" Foreground="White"/>
-            <ComboBox x:Name="Q4Box" Margin="0,4,0,12" Width="200">
-            <ComboBoxItem Content="פאשי"/>
-            <ComboBoxItem Content="ניסו"/>
-            <ComboBoxItem Content="אניס"/>
-            </ComboBox>
-
-            <TextBlock Text="5) מה המקום הכי פופלרי שאנחנו יוצאים אלוי?" Foreground="White"/>
-            <ComboBox x:Name="Q5Box" Margin="0,4,0,12" Width="200">
-            <ComboBoxItem Content="גרנד"/>
-            <ComboBoxItem Content="יער"/>
-            <ComboBoxItem Content="מסעדות"/>
-            </ComboBox>
-
-            <TextBlock Text="6) מה הוא הקינוח הראשון שאכלנו ביחד?" Foreground="White"/>
-            <ComboBox x:Name="Q6Box" Margin="0,4,0,12" Width="200">
-            <ComboBoxItem Content="באפל בלגי"/>
-            <ComboBoxItem Content="יוגרט"/>
-            <ComboBoxItem Content="גלידה"/>
-            </ComboBox>
-
-            <TextBlock Text="7) מה השם של הבחורה שאתה הכי אוהב בעולם כולו?" Foreground="White"/>
-            <ComboBox x:Name="Q7Box" Margin="0,4,0,12" Width="200">
-            <ComboBoxItem Content="מריאן"/>
-            <ComboBoxItem Content="---"/>
-            <ComboBoxItem Content="---"/>
-            </ComboBox>
-          </StackPanel>
-
-          <Rectangle Height="1" Fill="#FFFFFF22" Margin="0,16,0,16"/>
-
-
-          <TextBlock Text="כדי להיות מוכן למסע:"
-                     FontSize="22" FontWeight="SemiBold"
-                     Foreground="White" TextAlignment="center"
-                     Margin="0,0,0,8"/>
-
-          <StackPanel>
-            <TextBlock Text="• תבוא בלבוש נוח, כמו לאימון"
-                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
-            <TextBlock Text="• נעליים ספורט "
-                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
-            <TextBlock Text="• חיוך ענק על הפנים "
-                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
-            <TextBlock Text="• אנרגיות טובות"
-                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
-            <TextBlock Text="• וכובע "
-                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
-          </StackPanel>
-
-          <Rectangle Height="1" Fill="#FFFFFF22" Margin="0,16,0,16"/>
-
-          <TextBlock Text="את כל השאר אני אשאיר לי אני כבר מחכה בקוצר רוח להתחיל איתך את היום הזה."
-                     FontSize="18" Foreground="#E5E7EB"
-                     TextAlignment="center" TextWrapping="Wrap"
-                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
-                     Margin="0,0,0,8"/>
-
-          <TextBlock Text="אוהבת אותך עד אין סוף "
-                     FontSize="20" FontWeight="SemiBold"
-                     Foreground="White" TextAlignment="center"/>
-        </StackPanel>
-        <Button Grid.Row="2" Content="שלח תשובות"
-          HorizontalAlignment="Center"
-          Margin="0,16,0,24"
-          Padding="16,8"
-          Click="SubmitQuiz_Click"/>
-      </StackPanel>
-    </ScrollViewer>
-  </Border>
-</Grid>
-
-        <Grid x:Name="Screen2" Visibility="Collapsed">
-            <StackPanel Margin="24">
-                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click"/>
-                <Border CornerRadius="16" Padding="24" Background="#1F2937" Margin="0,16,0,0">
+                    <!-- Results (shown after quiz success) -->
+                    <Border x:Name="ResultsCard"
+                            Visibility="Collapsed"
+                            Margin="0,16,0,0"
+                            CornerRadius="12"
+                            Background="{StaticResource Brush.CardAlt}"
+                            Padding="16">
+                      <StackPanel>
+                        <TextBlock Text="תשובות נכונות – שלב 1"
+                                   FontSize="20" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBlock x:Name="ResultsText"
+                                   FontSize="16" TextWrapping="Wrap"
+                                   Foreground="{StaticResource Brush.TextSubtle}"/>
+                      </StackPanel>
+                    </Border>
+                    <!-- Results for Stage 2 -->
+                    <Border x:Name="ResultsCard2"
+                            Visibility="Collapsed"
+                            Margin="0,12,0,0"
+                            CornerRadius="12"
+                            Background="{StaticResource Brush.CardAlt}"
+                            Padding="16">
                     <StackPanel>
-                        <TextBlock Text="Screen 2" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                        <TextBlock Text="" Opacity="0.85"/>
+                        <TextBlock Text="תשובות נכונות – שלב 2"
+                                FontSize="20" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBlock x:Name="ResultsText2"
+                                FontSize="16" TextWrapping="Wrap"
+                                Foreground="{StaticResource Brush.TextSubtle}"/>
                     </StackPanel>
+                    </Border>
+
+                    <!-- Results for Stage 3 -->
+                    <Border x:Name="ResultsCard3"
+                            Visibility="Collapsed"
+                            Margin="0,12,0,0"
+                            CornerRadius="12"
+                            Background="{StaticResource Brush.CardAlt}"
+                            Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="תשובות נכונות – שלב 3"
+                                FontSize="20" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBlock x:Name="ResultsText3"
+                                FontSize="16" TextWrapping="Wrap"
+                                Foreground="{StaticResource Brush.TextSubtle}"/>
+                    </StackPanel>
+                    </Border>
+
+                    <!-- Results for Stage 4 -->
+                    <Border x:Name="ResultsCard4"
+                            Visibility="Collapsed"
+                            Margin="0,12,0,0"
+                            CornerRadius="12"
+                            Background="{StaticResource Brush.CardAlt}"
+                            Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="תשובות נכונות – שלב 4"
+                                FontSize="20" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBlock x:Name="ResultsText4"
+                                FontSize="16" TextWrapping="Wrap"
+                                Foreground="{StaticResource Brush.TextSubtle}"/>
+                    </StackPanel>
+                    </Border>
+
+                  </StackPanel>
                 </Border>
             </StackPanel>
+
+            <!-- Balloons + confetti layers -->
+            <Grid IsHitTestVisible="False">
+                <Canvas x:Name="BalloonsLayer">
+                    <!-- simple balloons; positions are seed values, movement done in code -->
+                    <Grid Canvas.Left="80" Canvas.Top="420">
+                        <Ellipse Width="38" Height="46" Fill="#66FF6FB1"/>
+                        <Rectangle Width="2" Height="40" Fill="#44FFFFFF" Canvas.Top="46" />
+                    </Grid>
+                    <Grid Canvas.Left="220" Canvas.Top="460">
+                        <Ellipse Width="32" Height="40" Fill="#66FFD166"/>
+                        <Rectangle Width="2" Height="36" Fill="#44FFFFFF" Canvas.Top="40" />
+                    </Grid>
+                    <Grid Canvas.Left="560" Canvas.Top="500">
+                        <Ellipse Width="44" Height="54" Fill="#669B5DE5"/>
+                        <Rectangle Width="2" Height="44" Fill="#44FFFFFF" Canvas.Top="54" />
+                    </Grid>
+                </Canvas>
+                <Canvas x:Name="ConfettiLayer"/>
+            </Grid>
         </Grid>
 
+        <!-- ========== Screen 1 ========== -->
+        <Grid x:Name="Screen1" Visibility="Collapsed"
+              TextOptions.TextFormattingMode="Ideal"
+              TextOptions.TextRenderingMode="ClearType">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0"
+                    Content="⌂ Back to Menu"
+                    HorizontalAlignment="Right"
+                    Margin="24,24,24,0"
+                    Click="BackToMenu_Click"
+                    Style="{StaticResource GhostButton}"/>
+
+            <Grid Grid.Row="1">
+                <!-- Bunting -->
+                <Canvas Height="70" VerticalAlignment="Top" Margin="0,6,0,0" IsHitTestVisible="False">
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting1}" Canvas.Left="40"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting2}" Canvas.Left="110"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting3}" Canvas.Left="180"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting4}" Canvas.Left="250"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting1}" Canvas.Left="320"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting2}" Canvas.Left="390"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting3}" Canvas.Left="460"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting4}" Canvas.Left="530"/>
+                    <Path Data="{StaticResource BuntingGeometry}" Fill="{StaticResource Bunting1}" Canvas.Left="600"/>
+                </Canvas>
+
+                <!-- Title -->
+                <StackPanel Margin="24,26,24,0">
+                    <TextBlock Text="🎂 Round 1 – Quiz!"
+                               FontSize="30" FontWeight="Black" TextAlignment="Center"
+                               Foreground="{StaticResource BirthdayTitleBrush}"
+                               Effect="{StaticResource GlowSoft}" />
+                    <TextBlock Text="Answer all correctly to unlock the next surprise ✨"
+                               FontSize="15" Opacity="0.9" TextAlignment="Center" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <Border Style="{StaticResource Card}" Margin="24,110,24,24">
+                    <ScrollViewer x:Name="SV_Screen1"
+                                  VerticalScrollBarVisibility="Auto"
+                                  PanningMode="VerticalOnly"
+                                  Background="Transparent"
+                                  PreviewMouseLeftButtonDown="SV_PreviewMouseLeftButtonDown"
+                                  PreviewMouseMove="SV_PreviewMouseMove"
+                                  PreviewMouseLeftButtonUp="SV_PreviewMouseLeftButtonUp">
+                        <StackPanel HorizontalAlignment="Center" Margin="8">
+                            <StackPanel MaxWidth="860" HorizontalAlignment="Center" FlowDirection="RightToLeft">
+                                <!-- intro text -->
+                                <TextBlock Text="בוקר טוב אהוב שלי ✨" FontSize="30" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,8"/>
+                                <TextBlock Text="היום הזה סוף סוף הגיע – היום שחיכינו לו! לפני בדיוק 28שנים העולם קיבל מתנה – אותך בן אדם טהור, טוב לב, רגיש ואהוב. וגם אם לפעמים אתה מנסה להראות קשוח – אני יודעת, ומי שבאמת מכיר אותך יודע – שאתה בפנים הבייבי הכי מתוק שיש"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,12"/>
+                                <TextBlock Text=" אז תתכונן, כי היום אנחנו יוצאים ליום היסטורי, יום מיוחד, יום של שמחה, צחוק ואהבה -בלי טיפת עצב"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,16"/>
+                                <TextBlock Text=" כדי לדעת בכל פעם לאן ממשיכים, מחכה לך חידון קטן כל תשובה תוביל אותנו לרמז הבא – וביחד נגלה את היעד הבא במסע שלנו. "
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,18"/>
+
+                                <Rectangle Style="{StaticResource Rule}"/>
+
+                                <TextBlock Text="החידון הראשון של היום:" FontSize="22" FontWeight="SemiBold" TextAlignment="Center" Margin="0,0,0,8"/>
+
+                                <!-- quiz -->
+                                <StackPanel Margin="24" FlowDirection="RightToLeft">
+                                    <TextBlock Text="רמז : התשובה מוחבאת בתשובות הסופות - תתרכז בתשובות וב-סדר שלהם"
+                                               FontSize="16" FontWeight="Bold" Margin="0,0,0,16"/>
+
+                                    <TextBlock Text="1) באיזה חודש חגגנו את האהבה הכי גדולה שלך?"/>
+                                    <ComboBox x:Name="Q1Box">
+                                        <ComboBoxItem Content="ספטמפר"/>
+                                        <ComboBoxItem Content="פברואר"/>
+                                        <ComboBoxItem Content="אוקטופר"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="2) איזה מסעדה הינו ביום ההולדת שלי, לפני שנתיים?"/>
+                                    <ComboBox x:Name="Q2Box">
+                                        <ComboBoxItem Content="ויונו"/>
+                                        <ComboBoxItem Content="ביץ קלאפ"/>
+                                        <ComboBoxItem Content="גפניקה"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="3) מה הכונוי הכי מפרסם שלנו?"/>
+                                    <ComboBox x:Name="Q3Box">
+                                        <ComboBoxItem Content="בובי"/>
+                                        <ComboBoxItem Content="פאשי"/>
+                                        <ComboBoxItem Content="ניסו"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="4) איך רשום את השם שלך באנשי הקשר שלי?"/>
+                                    <ComboBox x:Name="Q4Box">
+                                        <ComboBoxItem Content="פאשי"/>
+                                        <ComboBoxItem Content="ניסו"/>
+                                        <ComboBoxItem Content="אניס"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="5) מה המקום הכי פופלרי שאנחנו יוצאים אלוי?"/>
+                                    <ComboBox x:Name="Q5Box">
+                                        <ComboBoxItem Content="גרנד"/>
+                                        <ComboBoxItem Content="יער"/>
+                                        <ComboBoxItem Content="מסעדות"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="6) מה הוא הקינוח הראשון שאכלנו ביחד?"/>
+                                    <ComboBox x:Name="Q6Box">
+                                        <ComboBoxItem Content="באפל בלגי"/>
+                                        <ComboBoxItem Content="יוגרט"/>
+                                        <ComboBoxItem Content="גלידה"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="7) מה השם של הבחורה שאתה הכי אוהב בעולם כולו?"/>
+                                    <ComboBox x:Name="Q7Box">
+                                        <ComboBoxItem Content="מריאן"/>
+                                        <ComboBoxItem Content="---"/>
+                                        <ComboBoxItem Content="---"/>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <Rectangle Style="{StaticResource Rule}"/>
+
+                                <TextBlock Text="כדי להיות מוכן למסע:" FontSize="22" FontWeight="SemiBold" TextAlignment="Center" Margin="0,0,0,8"/>
+
+                                <StackPanel>
+                                    <TextBlock Text="• תבוא בלבוש נוח, כמו לאימון" FontSize="18" Foreground="{StaticResource Brush.TextSubtle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                                    <TextBlock Text="• נעליים ספורט " FontSize="18" Foreground="{StaticResource Brush.TextSubtle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                                    <TextBlock Text="• חיוך ענק על הפנים " FontSize="18" Foreground="{StaticResource Brush.TextSubtle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                                    <TextBlock Text="• אנרגיות טובות" FontSize="18" Foreground="{StaticResource Brush.TextSubtle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                                    <TextBlock Text="• וכובע " FontSize="18" Foreground="{StaticResource Brush.TextSubtle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <Rectangle Style="{StaticResource Rule}"/>
+
+                                <TextBlock Text="את כל השאר אני אשאיר לי אני כבר מחכה בקוצר רוח להתחיל איתך את היום הזה."
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,8"/>
+
+                                <TextBlock Text="אוהבת אותך עד אין סוף " FontSize="20" FontWeight="SemiBold" TextAlignment="Center"/>
+                            </StackPanel>
+
+                            <Button Content="שלח תשובות ✉️"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,16,0,0"
+                                    Padding="16,8"
+                                    Click="SubmitQuiz1_Click"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- ========== Screen 2 ========== -->
+        <Grid x:Name="Screen2" Visibility="Collapsed">
+            <StackPanel Margin="24">
+                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click" Style="{StaticResource GhostButton}"/>
+                <Border x:Name="ResultsCard2"
+                        Visibility="Collapsed"
+                        Margin="0,12,0,0"
+                        CornerRadius="12"
+                        Background="{StaticResource Brush.CardAlt}"
+                        Padding="16">
+                <StackPanel>
+                    <TextBlock Text="תשובות נכונות – שלב 2"
+                            FontSize="20" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                    <TextBlock x:Name="ResultsText2"
+                            FontSize="16" TextWrapping="Wrap"
+                            Foreground="{StaticResource Brush.TextSubtle}"/>
+                </StackPanel>
+                </Border>
+                <Button Content="שלח תשובות ✉️"
+                    HorizontalAlignment="Center"
+                    Margin="0,16,0,0"
+                    Padding="16,8"
+                    Click="SubmitQuiz2_Click"/>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- ========== Screen 3 ========== -->
         <Grid x:Name="Screen3" Visibility="Collapsed">
             <StackPanel Margin="24">
-                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click"/>
-                <Border CornerRadius="16" Padding="24" Background="#1F2937" Margin="0,16,0,0">
+                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click" Style="{StaticResource GhostButton}"/>
+                <Border Style="{StaticResource Card}">
                     <StackPanel>
                         <TextBlock Text="Screen 3" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
                         <TextBlock Text="" Opacity="0.85"/>
@@ -225,10 +488,11 @@
             </StackPanel>
         </Grid>
 
+        <!-- ========== Screen 4 ========== -->
         <Grid x:Name="Screen4" Visibility="Collapsed">
             <StackPanel Margin="24">
-                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click"/>
-                <Border CornerRadius="16" Padding="24" Background="#1F2937" Margin="0,16,0,0">
+                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click" Style="{StaticResource GhostButton}"/>
+                <Border Style="{StaticResource Card}">
                     <StackPanel>
                         <TextBlock Text="Screen 4" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
                         <TextBlock Text="" Opacity="0.85"/>
@@ -236,5 +500,6 @@
                 </Border>
             </StackPanel>
         </Grid>
+
     </Grid>
 </Window>
