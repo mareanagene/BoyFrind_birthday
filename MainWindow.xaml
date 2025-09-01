@@ -1,0 +1,240 @@
+﻿<Window x:Class="wpf_project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="My WPF App" Height="520" Width="860" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="Background" Value="#1F2937"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#22FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#0B1220">
+
+        <Grid x:Name="ScreenMenu" Visibility="Visible">
+            <StackPanel Margin="24">
+                <TextBlock Text="Happy birthday baby" FontSize="28" FontWeight="Bold" Margin="0,0,0,12"/>
+                <UniformGrid Rows="2" Columns="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="שלב הראשון" Click="Go1_Click"/>
+                    <Button Content="שלב השני" Click="Go2_Click"/>
+                    <Button Content="שלב שלישי" Click="Go3_Click"/>
+                    <Button Content="שלב רביעי" Click="Go4_Click"/>
+                </UniformGrid>
+            </StackPanel>
+        </Grid>
+
+       <Grid x:Name="Screen1" Visibility="Collapsed"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="ClearType">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+  <Button Grid.Row="0"
+          Content="⌂ Back to Menu"
+          HorizontalAlignment="right"
+          Margin="24,24,24,0"
+          Click="BackToMenu_Click"/>
+
+  <Border Grid.Row="1"
+          CornerRadius="16"
+          Padding="0"
+          Background="#1F2937"
+          Margin="24,16,24,24">
+    <Border.Effect>
+      <DropShadowEffect BlurRadius="14" ShadowDepth="0" Opacity="0.35"/>
+    </Border.Effect>
+
+    <ScrollViewer x:Name="SV_Screen1"
+                  VerticalScrollBarVisibility="Auto"
+                  PanningMode="VerticalOnly"
+                  Background="Transparent"
+                  PreviewMouseLeftButtonDown="SV_PreviewMouseLeftButtonDown"
+                  PreviewMouseMove="SV_PreviewMouseMove"
+                  PreviewMouseLeftButtonUp="SV_PreviewMouseLeftButtonUp">
+
+      <StackPanel HorizontalAlignment="Center" Margin="24">
+        <StackPanel Width="720" FlowDirection="RightToLeft">
+
+          <TextBlock Text="בוקר טוב אהוב שלי ✨"
+                     FontFamily="Segoe UI"
+                     FontSize="30"
+                     FontWeight="Bold"
+                     Foreground="White"
+                     TextAlignment="center"
+                     Margin="0,0,0,8"/>
+
+          <TextBlock Text="היום הזה סוף סוף הגיע – היום שחיכינו לו! לפני בדיוק 28שנים העולם קיבל מתנה – אותך בן אדם טהור, טוב לב, רגיש ואהוב. וגם אם לפעמים אתה מנסה להראות קשוח – אני יודעת, ומי שבאמת מכיר אותך יודע – שאתה בפנים הבייבי הכי מתוק שיש"
+                     FontSize="18" Foreground="#E5E7EB"
+                     TextAlignment="center" TextWrapping="Wrap"
+                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                     Margin="0,0,0,12"/>
+
+          <TextBlock Text=" אז תתכונן, כי היום אנחנו יוצאים ליום היסטורי, יום מיוחד, יום של שמחה, צחוק ואהבה -בלי טיפת עצב"
+                     FontSize="18" Foreground="#E5E7EB"
+                     TextAlignment="center" TextWrapping="Wrap"
+                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                     Margin="0,0,0,16"/>
+            
+            <TextBlock Text=" כדי לדעת בכל פעם לאן ממשיכים, מחכה לך חידון קטן כל תשובה תוביל אותנו לרמז הבא – וביחד נגלה את היעד הבא במסע שלנו. "
+                     FontSize="18" Foreground="#E5E7EB"
+                     TextAlignment="center" TextWrapping="Wrap"
+                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                     Margin="0,0,0,18"/>
+
+          <Rectangle Height="1" Fill="#FFFFFF22" Margin="0,8,0,20"/>
+
+          <TextBlock Text="החידון הראשון של היום:"
+                     FontSize="22" FontWeight="SemiBold"
+                     Foreground="White" TextAlignment="center"
+                     Margin="0,0,0,8"/>
+
+          <StackPanel Grid.Row="1" Margin="24" FlowDirection="RightToLeft">
+
+            <TextBlock Text="רמז : התשובה מוחבאת בתשובות הסופות - תתרכז בתשובות וב-סדר שלהם" 
+                    FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,0,16"/>
+
+      
+            <TextBlock Text="1) באיזה חודש חגגנו את האהבה הכי גדולה שלך?" Foreground="White"/>
+            <ComboBox x:Name="Q1Box" Margin="0,4,0,12" Width="200">
+            <ComboBoxItem Content="ספטמפר"/>
+            <ComboBoxItem Content="פברואר"/>
+            <ComboBoxItem Content="אוקטופר"/>
+            </ComboBox>
+
+          
+            <TextBlock Text="2) איזה מסעדה הינו ביום ההולדת שלי, לפני שנתיים?" Foreground="White"/>
+            <ComboBox x:Name="Q2Box" Margin="0,4,0,12" Width="200">
+            <ComboBoxItem Content="ויונו"/>
+            <ComboBoxItem Content="ביץ קלאפ"/>
+            <ComboBoxItem Content="גפניקה"/>
+            </ComboBox>
+
+     
+            <TextBlock Text="3) מה הכונוי הכי מפרסם שלנו?" Foreground="White"/>
+            <ComboBox x:Name="Q3Box" Margin="0,4,0,12" Width="200">
+            <ComboBoxItem Content="בובי"/>
+            <ComboBoxItem Content="פאשי"/>
+            <ComboBoxItem Content="ניסו"/>
+            </ComboBox>
+
+            <TextBlock Text="4) איך רשום את השם שלך באנשי הקשר שלי?" Foreground="White"/>
+            <ComboBox x:Name="Q4Box" Margin="0,4,0,12" Width="200">
+            <ComboBoxItem Content="פאשי"/>
+            <ComboBoxItem Content="ניסו"/>
+            <ComboBoxItem Content="אניס"/>
+            </ComboBox>
+
+            <TextBlock Text="5) מה המקום הכי פופלרי שאנחנו יוצאים אלוי?" Foreground="White"/>
+            <ComboBox x:Name="Q5Box" Margin="0,4,0,12" Width="200">
+            <ComboBoxItem Content="גרנד"/>
+            <ComboBoxItem Content="יער"/>
+            <ComboBoxItem Content="מסעדות"/>
+            </ComboBox>
+
+            <TextBlock Text="6) מה הוא הקינוח הראשון שאכלנו ביחד?" Foreground="White"/>
+            <ComboBox x:Name="Q6Box" Margin="0,4,0,12" Width="200">
+            <ComboBoxItem Content="באפל בלגי"/>
+            <ComboBoxItem Content="יוגרט"/>
+            <ComboBoxItem Content="גלידה"/>
+            </ComboBox>
+
+            <TextBlock Text="7) מה השם של הבחורה שאתה הכי אוהב בעולם כולו?" Foreground="White"/>
+            <ComboBox x:Name="Q7Box" Margin="0,4,0,12" Width="200">
+            <ComboBoxItem Content="מריאן"/>
+            <ComboBoxItem Content="---"/>
+            <ComboBoxItem Content="---"/>
+            </ComboBox>
+          </StackPanel>
+
+          <Rectangle Height="1" Fill="#FFFFFF22" Margin="0,16,0,16"/>
+
+
+          <TextBlock Text="כדי להיות מוכן למסע:"
+                     FontSize="22" FontWeight="SemiBold"
+                     Foreground="White" TextAlignment="center"
+                     Margin="0,0,0,8"/>
+
+          <StackPanel>
+            <TextBlock Text="• תבוא בלבוש נוח, כמו לאימון"
+                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
+            <TextBlock Text="• נעליים ספורט "
+                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
+            <TextBlock Text="• חיוך ענק על הפנים "
+                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
+            <TextBlock Text="• אנרגיות טובות"
+                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
+            <TextBlock Text="• וכובע "
+                       FontSize="18" Foreground="#E5E7EB" TextWrapping="Wrap" Margin="0,2,0,0"/>
+          </StackPanel>
+
+          <Rectangle Height="1" Fill="#FFFFFF22" Margin="0,16,0,16"/>
+
+          <TextBlock Text="את כל השאר אני אשאיר לי אני כבר מחכה בקוצר רוח להתחיל איתך את היום הזה."
+                     FontSize="18" Foreground="#E5E7EB"
+                     TextAlignment="center" TextWrapping="Wrap"
+                     LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                     Margin="0,0,0,8"/>
+
+          <TextBlock Text="אוהבת אותך עד אין סוף "
+                     FontSize="20" FontWeight="SemiBold"
+                     Foreground="White" TextAlignment="center"/>
+        </StackPanel>
+        <Button Grid.Row="2" Content="שלח תשובות"
+          HorizontalAlignment="Center"
+          Margin="0,16,0,24"
+          Padding="16,8"
+          Click="SubmitQuiz_Click"/>
+      </StackPanel>
+    </ScrollViewer>
+  </Border>
+</Grid>
+
+        <Grid x:Name="Screen2" Visibility="Collapsed">
+            <StackPanel Margin="24">
+                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click"/>
+                <Border CornerRadius="16" Padding="24" Background="#1F2937" Margin="0,16,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Screen 2" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <TextBlock Text="" Opacity="0.85"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="Screen3" Visibility="Collapsed">
+            <StackPanel Margin="24">
+                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click"/>
+                <Border CornerRadius="16" Padding="24" Background="#1F2937" Margin="0,16,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Screen 3" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <TextBlock Text="" Opacity="0.85"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="Screen4" Visibility="Collapsed">
+            <StackPanel Margin="24">
+                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click"/>
+                <Border CornerRadius="16" Padding="24" Background="#1F2937" Margin="0,16,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Screen 4" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <TextBlock Text="" Opacity="0.85"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
