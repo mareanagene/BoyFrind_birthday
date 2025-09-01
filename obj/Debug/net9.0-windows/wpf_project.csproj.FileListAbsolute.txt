@@ -17,3 +17,4 @@ C:\Users\magene\OneDrive - NVIDIA Corporation\Desktop\wpf_project\wpf_project\ob
 C:\Users\magene\OneDrive - NVIDIA Corporation\Desktop\wpf_project\wpf_project\obj\Debug\net9.0-windows\wpf_project.pdb
 C:\Users\magene\OneDrive - NVIDIA Corporation\Desktop\wpf_project\wpf_project\obj\Debug\net9.0-windows\wpf_project.genruntimeconfig.cache
 C:\Users\magene\OneDrive - NVIDIA Corporation\Desktop\wpf_project\wpf_project\obj\Debug\net9.0-windows\ref\wpf_project.dll
+C:\Users\magene\OneDrive - NVIDIA Corporation\Desktop\wpf_project\wpf_project\obj\Debug\net9.0-windows\wpf_project.sourcelink.json
