@@ -16,19 +16,19 @@ namespace wpf_project
         // Random generator for animations
         private readonly Random _rnd = new Random();
 
-        // Stage 1 completion state
+        // Stage completion state
         private bool _stage1Completed = false;
-        
         private bool _stage2Completed = false;
         private bool _stage3Completed = false;
         private bool _stage4Completed = false;
 
-
         // Balloons
-        private DispatcherTimer _balloonTimer;
-        private double _balloonSpeed1 = 26;
-        private double _balloonSpeed2 = 20;
-        private double _balloonSpeed3 = 32;
+        private DispatcherTimer? _balloonTimer; // nullable to avoid warning
+
+        // (Optional) remove if unused:
+        // private double _balloonSpeed1 = 26;
+        // private double _balloonSpeed2 = 20;
+        // private double _balloonSpeed3 = 32;
 
         // Balloon per-item info for sway animation
         private class BalloonInfo
@@ -46,14 +46,10 @@ namespace wpf_project
 
             Loaded += (s, e) =>
             {
-                if (_stage1Completed)
-                    MarkStage1Completed();
-                if (_stage2Completed)
-                    MarkStage2Completed();
-                if (_stage3Completed)
-                    MarkStage3Completed();
-                if (_stage4Completed)
-                    MarkStage4Completed();
+                if (_stage1Completed) MarkStage1Completed();
+                if (_stage2Completed) MarkStage2Completed();
+                if (_stage3Completed) MarkStage3Completed();
+                if (_stage4Completed) MarkStage4Completed();
 
                 InitBalloons();
                 StartBalloons();
@@ -86,7 +82,7 @@ namespace wpf_project
         private double _startH, _startV;
         private const double PanThreshold = 6;
 
-        private static T FindAncestor<T>(DependencyObject d) where T : DependencyObject
+        private static T? FindAncestor<T>(DependencyObject d) where T : DependencyObject
         {
             while (d != null)
             {
@@ -161,58 +157,52 @@ namespace wpf_project
             }
         }
 
-        // ---------- Mark stage 1 completion on home ----------
+        // ---------- Mark stage completion on home ----------
         private void MarkStage1Completed()
         {
             _stage1Completed = true;
-
             if (BtnStage1 != null)
             {
                 BtnStage1.Content = "שלב הראשון ✓ הושלם";
                 BtnStage1.IsEnabled = false;
-                BtnStage1.Opacity = 0.6;          // subtle "done" look
-                BtnStage1.Cursor = Cursors.Arrow; // no hand cursor
+                BtnStage1.Opacity = 0.6;
+                BtnStage1.Cursor = Cursors.Arrow;
             }
         }
 
-        // ---------- Mark stage 2 completion on home ----------
         private void MarkStage2Completed()
         {
             _stage2Completed = true;
-
             if (BtnStage2 != null)
             {
                 BtnStage2.Content = "שלב שני ✓ הושלם";
                 BtnStage2.IsEnabled = false;
-                BtnStage2.Opacity = 0.6;          // subtle "done" look
-                BtnStage2.Cursor = Cursors.Arrow; // no hand cursor
+                BtnStage2.Opacity = 0.6;
+                BtnStage2.Cursor = Cursors.Arrow;
             }
         }
 
         private void MarkStage3Completed()
         {
             _stage3Completed = true;
-
             if (BtnStage3 != null)
             {
                 BtnStage3.Content = "שלב שלישי ✓ הושלם";
                 BtnStage3.IsEnabled = false;
-                BtnStage3.Opacity = 0.6;          // subtle "done" look
-                BtnStage3.Cursor = Cursors.Arrow; // no hand cursor
+                BtnStage3.Opacity = 0.6;
+                BtnStage3.Cursor = Cursors.Arrow;
             }
         }
-
 
         private void MarkStage4Completed()
         {
             _stage4Completed = true;
-
             if (BtnStage4 != null)
             {
                 BtnStage4.Content = "שלב רביעי ✓ הושלם";
                 BtnStage4.IsEnabled = false;
-                BtnStage4.Opacity = 0.6;          // subtle "done" look
-                BtnStage4.Cursor = Cursors.Arrow; // no hand cursor
+                BtnStage4.Opacity = 0.6;
+                BtnStage4.Cursor = Cursors.Arrow;
             }
         }
 
@@ -220,7 +210,7 @@ namespace wpf_project
         private void SubmitQuiz1_Click(object sender, RoutedEventArgs e)
         {
             // keep answers aligned with the exact strings in XAML ComboBoxItems
-            string correctQ1 = "אוקטופר";
+            string correctQ1 = "אוקטובר";
             string correctQ2 = "ויונו";
             string correctQ3 = "פאשי";
             string correctQ4 = "ניסו";
@@ -236,20 +226,25 @@ namespace wpf_project
                 return;
             }
 
-            string ans1 = (Q1Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            string ans2 = (Q2Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            string ans3 = (Q3Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            string ans4 = (Q4Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            string ans5 = (Q5Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            string ans6 = (Q6Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            string ans7 = (Q7Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string? ans1 = (Q1Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string? ans2 = (Q2Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string? ans3 = (Q3Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string? ans4 = (Q4Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string? ans5 = (Q5Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string? ans6 = (Q6Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string? ans7 = (Q7Box.SelectedItem as ComboBoxItem)?.Content?.ToString();
 
-            bool allOk = ans1 == correctQ1 && ans2 == correctQ2 && ans3 == correctQ3 &&
-                         ans4 == correctQ4 && ans5 == correctQ5 && ans6 == correctQ6 && ans7 == correctQ7;
+            bool allOk =
+                string.Equals(ans1, correctQ1, StringComparison.CurrentCulture) &&
+                string.Equals(ans2, correctQ2, StringComparison.CurrentCulture) &&
+                string.Equals(ans3, correctQ3, StringComparison.CurrentCulture) &&
+                string.Equals(ans4, correctQ4, StringComparison.CurrentCulture) &&
+                string.Equals(ans5, correctQ5, StringComparison.CurrentCulture) &&
+                string.Equals(ans6, correctQ6, StringComparison.CurrentCulture) &&
+                string.Equals(ans7, correctQ7, StringComparison.CurrentCulture);
 
             if (allOk)
             {
-                // Build the results text shown on the home screen
                 string result =
                     "תשובות נכונות:\n" +
                     $"1) {correctQ1}\n" +
@@ -260,20 +255,13 @@ namespace wpf_project
                     $"6) {correctQ6}\n" +
                     $"7) {correctQ7}";
 
-                // 1) Mark Stage 1 as completed (visually disables the button on home)
                 MarkStage1Completed();
 
-                // 2) Put the answers on the home screen and show the results card
                 if (ResultsText != null) ResultsText.Text = result;
                 if (ResultsCard != null) ResultsCard.Visibility = Visibility.Visible;
 
-                // 3) Go back to the home screen
                 ShowScreen(ScreenMenu, "Main Menu");
-
-                // 4) Celebrate on the home screen with confetti (responsive amount)
                 StartConfetti(150);
-
-                return; // No MessageBox; feedback is on the home screen
             }
             else
             {
@@ -285,14 +273,15 @@ namespace wpf_project
         {
             string correctQ1 = "ציור";
 
-            if (Q1Box2 == null || Q1Box2.SelectedItem == null)
+            // NEW: read from TextBox (Q1Box2Text)
+            if (Q1Box2Text == null || string.IsNullOrWhiteSpace(Q1Box2Text.Text))
             {
-                MessageBox.Show("בחר/י תשובה לכל השאלות לפני שליחה.", "חסר מידע");
+                MessageBox.Show("נא להקליד תשובה לפני שליחה.", "חסר מידע");
                 return;
             }
 
-            string ans1 = (Q1Box2.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            bool allOk = ans1 == correctQ1;
+            string ans1 = Q1Box2Text.Text.Trim();
+            bool allOk = string.Equals(ans1, correctQ1, StringComparison.CurrentCulture);
 
             if (allOk)
             {
@@ -305,25 +294,26 @@ namespace wpf_project
 
                 ShowScreen(ScreenMenu, "Main Menu");
                 StartConfetti(150);
-                return;
             }
-
-            MessageBox.Show("לא כל התשובות נכונות... נסו שוב 🙂", "כמעט!");
+            else
+            {
+                MessageBox.Show("לא מדויק... נסו שוב 🙂", "כמעט!");
+            }
         }
-
 
         private void SubmitQuiz3_Click(object sender, RoutedEventArgs e)
         {
             string correctQ1 = "אוכל + ריצה";
 
-            if (Q1Box3 == null || Q1Box3.SelectedItem == null)
+            // NEW: read from TextBox (Q1Box3Text)
+            if (Q1Box3Text == null || string.IsNullOrWhiteSpace(Q1Box3Text.Text))
             {
-                MessageBox.Show("בחר/י תשובה לכל השאלות לפני שליחה.", "חסר מידע");
+                MessageBox.Show("נא להקליד תשובה לפני שליחה.", "חסר מידע");
                 return;
             }
 
-            string ans1 = (Q1Box3.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            bool allOk = ans1 == correctQ1;
+            string ans1 = Q1Box3Text.Text.Trim();
+            bool allOk = string.Equals(ans1, correctQ1, StringComparison.CurrentCulture);
 
             if (allOk)
             {
@@ -336,24 +326,26 @@ namespace wpf_project
 
                 ShowScreen(ScreenMenu, "Main Menu");
                 StartConfetti(150);
-                return;
             }
-
-            MessageBox.Show("לא כל התשובות נכונות... נסו שוב 🙂", "כמעט!");
+            else
+            {
+                MessageBox.Show("לא מדויק... נסו שוב 🙂", "כמעט!");
+            }
         }
 
         private void SubmitQuiz4_Click(object sender, RoutedEventArgs e)
         {
             string correctQ1 = "מינה טומה";
 
-            if (Q1Box4 == null || Q1Box4.SelectedItem == null)
+            // NEW: read from TextBox (Q1Box4Text)
+            if (Q1Box4Text == null || string.IsNullOrWhiteSpace(Q1Box4Text.Text))
             {
-                MessageBox.Show("בחר/י תשובה לכל השאלות לפני שליחה.", "חסר מידע");
+                MessageBox.Show("נא להקליד תשובה לפני שליחה.", "חסר מידע");
                 return;
             }
 
-            string ans1 = (Q1Box4.SelectedItem as ComboBoxItem)?.Content?.ToString();
-            bool allOk = ans1 == correctQ1;
+            string ans1 = Q1Box4Text.Text.Trim();
+            bool allOk = string.Equals(ans1, correctQ1, StringComparison.CurrentCulture);
 
             if (allOk)
             {
@@ -366,12 +358,12 @@ namespace wpf_project
 
                 ShowScreen(ScreenMenu, "Main Menu");
                 StartConfetti(150);
-                return;
             }
-
-            MessageBox.Show("לא כל התשובות נכונות... נסו שוב 🙂", "כמעט!");
+            else
+            {
+                MessageBox.Show("לא מדויק... נסו שוב 🙂", "כמעט!");
+            }
         }
-
 
         // ---------- Party button ----------
         private void Party_Click(object sender, RoutedEventArgs e)
