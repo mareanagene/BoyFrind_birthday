@@ -285,7 +285,7 @@ namespace wpf_project
 
             if (allOk)
             {
-                string result = "תשובה נכונה (שלב 2):\n" + $"1) {correctQ1}\n";
+                string result = $"{correctQ1}";
 
                 MarkStage2Completed();
 
@@ -317,7 +317,7 @@ namespace wpf_project
 
             if (allOk)
             {
-                string result = "תשובה נכונה (שלב 3):\n" + $"1) {correctQ1}\n";
+                string result = $"{correctQ1}";
 
                 MarkStage3Completed();
 
@@ -349,7 +349,7 @@ namespace wpf_project
 
             if (allOk)
             {
-                string result = "תשובה נכונה (שלב 4):\n" + $"1) {correctQ1}\n";
+                string result = $"{correctQ1}";
 
                 MarkStage4Completed();
 
