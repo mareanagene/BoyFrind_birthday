@@ -129,7 +129,7 @@
 
         <!-- ComboBox -->
         <Style TargetType="ComboBox">
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="black"/>
             <Setter Property="Background" Value="#223047"/>
             <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -140,7 +140,7 @@
         </Style>
 
         <Style TargetType="ComboBoxItem">
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="white"/>
             <Setter Property="Background" Value="#223047"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="HorizontalContentAlignment" Value="Right"/>
@@ -368,7 +368,7 @@
                                     <ComboBox x:Name="Q1Box">
                                         <ComboBoxItem Content="ספטמפר"/>
                                         <ComboBoxItem Content="פברואר"/>
-                                        <ComboBoxItem Content="אוקטופר"/>
+                                        <ComboBoxItem Content="אוקטובר"/>
                                     </ComboBox>
 
                                     <TextBlock Text="2) איזה מסעדה הינו ביום ההולדת שלי, לפני שנתיים?"/>
@@ -450,30 +450,51 @@
 
         <!-- ========== Screen 2 ========== -->
         <Grid x:Name="Screen2" Visibility="Collapsed">
-            <StackPanel Margin="24">
-                <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click" Style="{StaticResource GhostButton}"/>
-                <Border x:Name="ResultsCard2"
-                        Visibility="Collapsed"
-                        Margin="0,12,0,0"
-                        CornerRadius="12"
-                        Background="{StaticResource Brush.CardAlt}"
-                        Padding="16">
-                <StackPanel>
-                    <TextBlock Text="תשובות נכונות – שלב 2"
-                            FontSize="20" FontWeight="SemiBold" Margin="0,0,0,6"/>
-                    <TextBlock x:Name="ResultsText2"
-                            FontSize="16" TextWrapping="Wrap"
-                            Foreground="{StaticResource Brush.TextSubtle}"/>
-                </StackPanel>
-                </Border>
-                <Button Content="שלח תשובות ✉️"
-                    HorizontalAlignment="Center"
-                    Margin="0,16,0,0"
-                    Padding="16,8"
-                    Click="SubmitQuiz2_Click"/>
+        <StackPanel Margin="24">
+            <Button Content="⌂ Back to Menu"
+                    HorizontalAlignment="Left"
+                    Click="BackToMenu_Click"
+                    Style="{StaticResource GhostButton}"/>
 
+            <Border Style="{StaticResource Card}">
+            <StackPanel FlowDirection="RightToLeft" MaxWidth="760">
+                <TextBlock Text="וואווו , הגכנו לשלב השני✨" FontSize="30" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,8"/>
+                                <TextBlock Text="סיימנו את השלב הראשון שלנו בהצלחה איך זה לך?"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,12"/>
+                                <TextBlock Text="אני רוצה שתגיד לי באמת, מה הגישה – אני פה לידך ושומת אותך"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,16"/>
+                                <TextBlock Text=" ועכשיו... אנו נכנעים לשלב הרגוע. לצחוק ולהירגע יחד אחראי כל האנרגיה, זה הזמן שלנו לשבת, לנוח, להנות מהטבע שביבנו, להסתל אבל רגע... זה עוד לא הסוף! רק התחלנו לפני שנצלול לרוגע - יש לנו משהו חמוד שעומד לקרות. כדי לדעת מה הוא - מחכה לך חידה! "
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,18"/>
+
+                            <TextBlock Text="אני יכול להוציא קטן על הדף, או גדול על קיר בעיר. לפעמים אני צבעוני, לפעמים רק קווים, אבל אני תמיד בא מהלב, ולא צריך מילים כדי להבין אותי" />
+                                <TextBox x:Name="Q1Box2Text"
+                                Width="260"
+                                Margin="0,4,0,12"
+                                Padding="8,4"
+                                HorizontalAlignment="center"
+                                FlowDirection="RightToLeft"
+                                ToolTip="הקלד/י את התשובה"/>
+
+
+                <Button Content="שלח תשובות ✉️"
+                        HorizontalAlignment="Center"
+                        Margin="0,16,0,0"
+                        Padding="16,8"
+                        Click="SubmitQuiz2_Click"/>
             </StackPanel>
+            </Border>
+        </StackPanel>
         </Grid>
+
 
         <!-- ========== Screen 3 ========== -->
         <Grid x:Name="Screen3" Visibility="Collapsed">
@@ -481,8 +502,38 @@
                 <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click" Style="{StaticResource GhostButton}"/>
                 <Border Style="{StaticResource Card}">
                     <StackPanel>
-                        <TextBlock Text="Screen 3" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                        <TextBlock Text="" Opacity="0.85"/>
+                        <TextBlock Text="הגנו לשלב הלפני אחרון" FontSize="30" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,8"/>
+                                <TextBlock Text="נו, איך היב עד עכשיו? אם נהניתה מגיע לי חיבוק ענק ואם לא... טוב, אז נשיקה קטנה על הדרך"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,12"/>
+                                <TextBlock Text="ועכשיו... אחרי כל האנרגיה שהוצנו, אנחנו מתחילים להרגיש טיפה רעבים, נכון ו?"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,16"/>
+                                <TextBlock Text=" אחראי ששרפנו מלא קלוריות - הזמן להטפנק קצת עם משאהו טעים. או שאולי לא? או שאולי אפשר לשלב בין השניים? כי למה לא בעצם ... הכול יכול להיות! , אז תתכונן - מחכה לנו משהו מעניין במיוחד"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,18"/>
+
+                            <TextBlock Text="הרמז שלנו לשלב זה :תחשוב על הטרנד הכי מצחיק שראינו בטיקטוק- כשצריך גם לרוץ וגם לאכול - בוזמנית. בשלב הזה נצרך לנסות משאהו בסגנון... ולראות איך אתה שורד אתגר משוגע כזה "  TextAlignment="Center"/>
+                            <TextBox x:Name="Q1Box3Text"
+                                Width="260"
+                                Margin="0,4,0,12"
+                                Padding="8,4"
+                                HorizontalAlignment="center"
+                                FlowDirection="RightToLeft"
+                                ToolTip="הקלד/י את התשובה"/>
+
+
+                <Button Content="שלח תשובות ✉️"
+                        HorizontalAlignment="Center"
+                        Margin="0,16,0,0"
+                        Padding="16,8"
+                        Click="SubmitQuiz3_Click"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -494,8 +545,38 @@
                 <Button Content="⌂ Back to Menu" HorizontalAlignment="Left" Click="BackToMenu_Click" Style="{StaticResource GhostButton}"/>
                 <Border Style="{StaticResource Card}">
                     <StackPanel>
-                        <TextBlock Text="Screen 4" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                        <TextBlock Text="" Opacity="0.85"/>
+                        <TextBlock Text="הי בובייי" FontSize="30" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,8"/>
+                                <TextBlock Text="זהו סיימנו את כל השלבים שלנו להיום"
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,12"/>
+                                <TextBlock Text="ועכשיו נשאר רק הדבר הכי כיפי - הזמנה רומנטית איתי "
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,16"/>
+                                <TextBlock Text="כוס יין טוב , אוכל באמת טעים וקצת קלרס שיסגור לנו את היום המיוחד הזה בדיוק כמו שמגיע לו אז תתכונן- בשעה 20:30 אני באה לאסוף אותך "
+                                           FontSize="18" Foreground="{StaticResource Brush.TextSubtle}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           LineStackingStrategy="BlockLineHeight" LineHeight="28"
+                                           Margin="0,0,0,18"/>
+
+                            <TextBlock Text="החידה באחרונה של היום - מקום שגברנו עליו לא מעט , ותמיד אמרנו חייבים לנסות אותו , אבל איכשהו זה לא קרה - אז היום... זה קורה !!" TextAlignment="Center"/>
+                            <TextBox x:Name="Q1Box4Text"
+                                Width="260"
+                                Margin="0,4,0,12"
+                                Padding="8,4"
+                                HorizontalAlignment="center"
+                                FlowDirection="RightToLeft"
+                                ToolTip="הקלד/י את התשובה"/>
+
+
+                <Button Content="שלח תשובות ✉️"
+                        HorizontalAlignment="Center"
+                        Margin="0,16,0,0"
+                        Padding="16,8"
+                        Click="SubmitQuiz4_Click"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
